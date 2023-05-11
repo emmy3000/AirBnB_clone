@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Unittest module for the BaseModel class.
+Unittest module for BaseModel class.
 """
 import unittest
 import os
