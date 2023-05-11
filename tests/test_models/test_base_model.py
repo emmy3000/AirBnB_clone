@@ -225,5 +225,5 @@ class TestBaseModel(unittest.TestCase):
         expected_message = "save() takes 1 positional argument but 2 were given"
         self.assertEqual(str(e.exception), expected_message)
 
-    if __name__ == '__main__':
-        unittest.main()
+if __name__ == '__main__':
+    unittest.main()
