@@ -174,3 +174,101 @@ class TestHBNBCommandHelp(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("help"))
             self.assertEqual(expected_output, mock_output.getvalue().strip())
 
+class TestHBNBCommandExit(unittest.TestCase):
+    """
+    Unittests for testing `exit` from the HBNB command interpreter.
+    """
+
+    def test_quit_command_exits(self):
+        """
+        Tests the `quit` command for exiting the command interpreter.
+        """
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            command_interpreter = HBNBCommand()
+            result = command_interpreter.onecmd("quit")
+            self.assertTrue(result)
+
+    def test_EOF_command_exits(self):
+        """
+        Tests the `EOF` command exits the command interpreter.
+        """
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            command_interpreter = HBNBCommand()
+            result = command_interpreter.onecmd("EOF")
+            self.assertTrue(result)
+
+class TestHBNBCommandCreate(unittest.TestCase):
+    """
+    Unittests for testing the `create` command in the HBNB command intepreter
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        """
+        Sets up the test environment before running test case.
+        """
+        try:
+            os.rename("file.json", "tmp")
+        except IOError:
+            pass
+        FileStorage.__objects = {}
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Tear down the test environment after running test case.
+        """
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("tmp", "file.json")
+        except IOError:
+            pass
+
+    def test_create_missing_class_name(self):
+        """
+        Tests creating an instance without providing a class name.
+        """
+        expected_output = "** class name missing **"
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            command_interpreter = HBNBCommand()
+            result = command_interpreter.onecmd("create")
+            self.assertFalse(result)
+            self.assertEqual(expected_output, mock_output.getvalue().strip())
+
+    def test_create_invalid_class_name(self):
+        """
+        Tests creating an instance with an invalid class name.
+        """
+        expected_output = "** class doesn't exist **"
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            command_interpreter = HBNBCommand()
+            result = command_interpreter.onecmd("create MyModel")
+            self.assertFalse(result)
+            self.assertEqual(expected_output, mock_output.getvalue().strip())
+
+    def test_create_invalid_syntax(self):
+        """
+        Tests creating an instance with invalid syntax.
+        """
+        expected_output = "*** Unknown syntax: MyModel.create()"
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            command_interpreter = HBNBCommand()
+            result = command_interpreter.onecmd("MyModel.create()")
+            self.assertFalse(result)
+            self.assertEqual(expected_output, mock_output.getvalue().strip())
+
+        expected_output ="*** Unknown syntax: BaseModel.create()"
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            command_interpreter =HBNBCommand()
+            result = command_interpreter,onecmd("BaseModel.create()")
+            self.assertFalse(result)
+            self.assertEqual(expected_output, mock_output.getvalue().strip())
+
+    def test_create_object(self):
+        """
+        Tests creating instances of different classes using the `create` command.
+        """
+
