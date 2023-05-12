@@ -157,10 +157,10 @@ class TestHBNBCommandHelp(unittest.TestCase):
         Tests help message for the update command.
         """
         actual_output = (
-                "Usage: update <class> <id> <attribute_name> <attribute_value> or\n"
-                "   <class>.update(<id>, <attribute_name>, <attribute_value>) or\n"
-                "   <class>.update(<id>, <dictionary>)\n"
-                "Update a class instance of a given id by adding orupdating\n"
+                "Usage: update <class> <id> <attr_name> <attr_value> or\n"
+                "   <class>.update(<id>, <attr_name>, <attr_value>) or\n"
+                "   <class>.update(<id>, <dict>)\n"
+                "Update a class instance of a given id by adding or updating\n"
                 "a given attribute key/value pair or dictionary."
         )
         with patch("sys.stdout", new=StringIO()) as output:
@@ -337,7 +337,9 @@ class TestHBNBCommandShow(unittest.TestCase):
             with self.subTest(cmd=cmd):
                 with patch("sys.stdout", new=StringIO()) as mock_output:
                     self.assertFalse(HBNBCommand().onecmd(cmd))
-                    self.assertEqual(actual_output, mock_output.getvalue().strip())
+                    self.assertEqual(
+                            actual_output, mock_output.getvalue().strip()
+                    )
 
     def test_show_invalid_class(self):
         """
@@ -350,7 +352,9 @@ class TestHBNBCommandShow(unittest.TestCase):
             with self.subTest(cmd=cmd):
                 with patch("sys.stdout", new=StringIO()) as mock_output:
                     self.assertFalse(HBNBCommand().onecmd(cmd))
-                    self.assertEqual(actual_output, mock_output.getvalue().strip())
+                    self.assertEqual(
+                            actual_output, mock_output.getvalue().strip()
+                    )
 
     def test_show_missing_id_space_notation(self):
         """
@@ -371,7 +375,9 @@ class TestHBNBCommandShow(unittest.TestCase):
             with self.subTest(cls=cls):
                 with patch("sys.stdout", new=StringIO()) as mock_output:
                     self.assertFalse(HBNBCommand().onecmd(f"show {cls}"))
-                    self.assertEqual(actual_output, mock_outputoutput.getvalue().strip())
+                    self.assertEqual(
+                            actual_output, mock_outputoutput.getvalue().strip()
+                    )
 
     def test_show_missing_class(self):
         """
@@ -397,7 +403,9 @@ class TestHBNBCommandShow(unittest.TestCase):
             with self.subTest(cmd=cmd):
                 with patch("sys.stdout", new=StringIO()) as mock_output:
                     self.assertFalse(HBNBCommand().onecmd(cmd))
-                    self.assertEqual(actual_output, mock_output.getvalue().strip())
+                    self.assertEqual(
+                            actual_output, mock_output.getvalue().strip()
+                    )
 
     def test_show_missing_id_space_notation(self):
         """
@@ -418,7 +426,9 @@ class TestHBNBCommandShow(unittest.TestCase):
             with self.subTest(cls=cls):
                 with patch("sys.stdout", new=StringIO()) as output:
                     self.assertFalse(HBNBCommand().onecmd(f"show {cls}"))
-                    self.assertEqual(actual_output, output.getvalue().strip())
+                    self.assertEqual(
+                            actual_output, output.getvalue().strip()
+                    )
 
     def test_show_missing_id_dot_notation(self):
         """
@@ -438,8 +448,12 @@ class TestHBNBCommandShow(unittest.TestCase):
         for cls in classes:
             with self.subTest(cls=cls):
                 with patch("sys.stdout", new=StringIO()) as output:
-                    self.assertFalse(HBNBCommand().onecmd(f"{cls}.show()"))
-                    self.assertEqual(actual_output, output.getvalue().strip())
+                    self.assertFalse(
+                            HBNBCommand().onecmd(f"{cls}.show()")
+                    )
+                    self.assertEqual(
+                            actual_output, output.getvalue().strip()
+                    )
 
     def test_show_no_instance_found_space_notation(self):
         """
@@ -459,8 +473,12 @@ class TestHBNBCommandShow(unittest.TestCase):
         for cls in classes:
             with self.subTest(cls=cls):
                 with patch("sys.stdout", new=StringIO()) as mock_output:
-                    self.assertFalse(HBNBCommand().onecmd(f"show {cls} 1"))
-                    self.assertEqual(actual_output, output.getvalue().strip())
+                    self.assertFalse(
+                            HBNBCommand().onecmd(f"show {cls} 1")
+                    )
+                    self.assertEqual(
+                            actual_output, output.getvalue().strip()
+                    )
 
     def test_show_no_instance_found_dot_notation(self):
         """
@@ -481,7 +499,9 @@ class TestHBNBCommandShow(unittest.TestCase):
             with self.subTest(cls=cls):
                 with patch("sys.stdout", new=StringIO()) as mock_output:
                     self.assertFalse(HBNBCommand().onecmd(f"{cls}.show(1)"))
-                    self.assertEqual(actual_output, mock_output.getvalue().strip())
+                    self.assertEqual(
+                            actual_output, mock_output.getvalue().strip()
+                    )
 
     def test_show_objects_space_notation(self):
         """
@@ -500,19 +520,22 @@ class TestHBNBCommandShow(unittest.TestCase):
         for cls in classes:
             with self.subTest(cls=cls):
                 with patch("sys.stdout", new=StringIO()) as mock_output:
-                    self.assertFalse(HBNBCommand().onecmd(f"create {cls}"))
+                    self.assertFalse(
+                            HBNBCommand().onecmd(f"create {cls}")
+                    )
                     testID = mock_output.getvalue().strip()
 
                 with patch("sys.stdout", new=StringIO()) as mock_output:
                     obj = storage.all()[f"{cls}.{testID}"]
                     command = f"show {cls} {testID}"
                     self.assertFalse(HBNBCommand().onecmd(command))
-                    self.assertEqual(obj.__str__(), mock_output.getvalue().strip())
-
+                    self.assertEqual(
+                            obj.__str__(), mock_output.getvalue().strip()
+                    )
 
     def test_show_missing_id_space_notation(self):
         """
-        Test show command with missing instance ID (space notation).
+        Tests show command with missing instance ID (space notation).
         """
         actual_output = "** instance id missing **"
         commands = [
@@ -529,7 +552,9 @@ class TestHBNBCommandShow(unittest.TestCase):
             with patch("sys.stdout", new=StringIO()) as mock_output:
                 result = HBNBCommand().onecmd(command)
                 self.assertFalse(result)
-                self.assertEqual(actual_output, mock_output.getvalue().strip())
+                self.assertEqual(
+                        actual_output, mock_output.getvalue().strip()
+                )
 
     def test_show_missing_id_dot_notation(self):
         """
@@ -550,11 +575,13 @@ class TestHBNBCommandShow(unittest.TestCase):
             with patch("sys.stdout", new=StringIO()) as mock_output:
                 result = HBNBCommand().onecmd(command)
                 self.assertFalse(result)
-                self.assertEqual(actual_output, mock_output.getvalue().strip())
+                self.assertEqual(
+                        actual_output, mock_output.getvalue().strip()
+                )
 
     def test_show_no_instance_found_space_notation(self):
         """
-        Test show command with no instance found (space notation).
+        Tests show command with no instance found (space notation).
         """
         actual_output = "** no instance found **"
         commands = [
@@ -571,11 +598,13 @@ class TestHBNBCommandShow(unittest.TestCase):
             with patch("sys.stdout", new=StringIO()) as mock_output:
                 result = HBNBCommand().onecmd(command)
                 self.assertFalse(result)
-                self.assertEqual(actual_output, mock_output.getvalue().strip())
+                self.assertEqual(
+                        actual_output, mock_output.getvalue().strip()
+                )
 
     def test_show_no_instance_found_dot_notation(self):
         """
-        Test show command with no instance found (dot notation).
+        Tests show command with no instance found (dot notation).
         """
         actual_output = "** no instance found **"
         commands = [
@@ -592,7 +621,9 @@ class TestHBNBCommandShow(unittest.TestCase):
             with patch("sys.stdout", new=StringIO()) as mock_output:
                 result = HBNBCommand().onecmd(command)
                 self.assertFalse(result)
-                self.assertEqual(actual_output, output.getvalue().strip())
+                self.assertEqual(
+                        actual_output, output.getvalue().strip()
+                )
 
     def test_show_objects_space_notation(self):
         """
@@ -619,45 +650,83 @@ class TestHBNBCommandShow(unittest.TestCase):
             with patch("sys.stdout", new=StringIO()) as mock_output:
                 show_command = "show {} {}".format(obj_type, obj_id)
                 self.assertFalse(HBNBCommand().onecmd(show_command))
-                self.assertEqual(obj.__str__(), mock_output.getvalue().strip())
+                self.assertEqual(
+                        obj.__str__(), mock_output.getvalue().strip()
+                )
 
-        def test_destroy_id_missing_dot_notation(self):
+    def test_destroy_id_missing_dot_notation(self):
         """
         Test 'destroy' command with missing instance ID (dot notation).
         """
         actual_output = "** instance id missing **"
-        classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place",
+                "Review"
+        ]
 
         for class_name in classes:
             with patch("sys.stdout", new=StringIO()) as mock_output:
-                self.assertFalse(HBNBCommand().onecmd(f"{class_name}.destroy()"))
-                self.assertEqual(actual_output, mock_output.getvalue().strip())
+                self.assertFalse(
+                        HBNBCommand().onecmd(f"{class_name}.destroy()")
+                )
+                self.assertEqual(
+                        actual_output, mock_output.getvalue().strip()
+                )
 
     def test_destroy_invalid_id_space_notation(self):
         """
         Test 'destroy' command with invalid instance ID (space notation).
         """
         actual_output = "** no instance found **"
-        classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place",
+                "Review"
+        ]
 
         for class_name in classes:
             with patch("sys.stdout", new=StringIO()) as output:
-                self.assertFalse(HBNBCommand().onecmd(f"destroy {class_name} 1"))
-                self.assertEqual(actual_output, mock_output.getvalue().strip())
+                self.assertFalse(
+                        HBNBCommand().onecmd(f"destroy {class_name} 1")
+                )
+                self.assertEqual(
+                        actual_output, mock_output.getvalue().strip()
+                )
 
     def test_destroy_invalid_id_dot_notation(self):
         """
         Test 'destroy' command with invalid instance ID (dot notation).
         """
         actual_output = "** no instance found **"
-        classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place",
+                "Review"
+        ]
 
         for class_name in classes:
             with patch("sys.stdout", new=StringIO()) as mock_output:
-                self.assertFalse(HBNBCommand().onecmd(f"{class_name}.destroy(1)"))
-                self.assertEqual(actual_output, mock_output.getvalue().strip())
+                self.assertFalse(
+                        HBNBCommand().onecmd(f"{class_name}.destroy(1)")
+                )
+                self.assertEqual(
+                        actual_output, mock_output.getvalue().strip()
+                )
 
-        def test_destroy_objects_space_notation(self):
+    def test_destroy_objects_space_notation(self):
         """
         Test 'destroy' command for existing objects (space notation).
         """
@@ -673,7 +742,9 @@ class TestHBNBCommandShow(unittest.TestCase):
 
         for command in commands:
             with patch("sys.stdout", new=StringIO()) as mock_output:
-                self.assertFalse(HBNBCommand().onecmd(command))
+                self.assertFalse(
+                        HBNBCommand().onecmd(command)
+                )
                 test_id = mock_output.getvalue().strip()
 
             class_name = command.split(" ")[1]
@@ -684,8 +755,9 @@ class TestHBNBCommandShow(unittest.TestCase):
                 command = "destroy {} {}".format(class_name, test_id)
                 self.assertFalse(HBNBCommand().onecmd(command))
                 self.assertNotIn(obj, storage.all())
-
-                # Additional assertion to check if the object is destroyed
+                """
+                Additional assertion to check if the object is destroyed
+                """
                 self.assertNotIn(obj_key, storage.all())
 
     def test_destroy_objects_dot_notation(self):
@@ -715,8 +787,9 @@ class TestHBNBCommandShow(unittest.TestCase):
                 command = "{}.destroy({})".format(class_name, test_id)
                 self.assertFalse(HBNBCommand().onecmd(command))
                 self.assertNotIn(obj, storage.all())
-
-                # Additional assertion to check if the object is destroyed
+                """
+                Additional assertion to check if the object is destroyed
+                """
                 self.assertNotIn(obj_key, storage.all())
 
 
@@ -758,10 +831,14 @@ class TestHBNBCommandDestroy(unittest.TestCase):
         actual_output = "** class name missing **"
         with patch("sys.stdout", new=StringIO()) as mock_output:
             self.assertFalse(HBNBCommand().onecmd("destroy"))
-            self.assertEqual(actual_output, mock_output.getvalue().strip())
+            self.assertEqual(
+                    actual_output, mock_output.getvalue().strip()
+            )
         with patch("sys.stdout", new=StringIO()) as mock_output:
             self.assertFalse(HBNBCommand().onecmd(".destroy()"))
-            self.assertEqual(actual_output, mock_output.getvalue().strip())
+            self.assertEqual(
+                    actual_output, mock_output.getvalue().strip()
+            )
 
     def test_destroy_invalid_class(self):
         """
@@ -773,60 +850,116 @@ class TestHBNBCommandDestroy(unittest.TestCase):
         for class_name in classes:
             with self.subTest(class_name=class_name):
                 with patch("sys.stdout", new=StringIO()) as mock_output:
-                    self.assertFalse(HBNBCommand().onecmd(f"destroy {class_name}"))
-                    self.assertEqual(actual_output, mock_output.getvalue().strip())
+                    self.assertFalse(
+                            HBNBCommand().onecmd(f"destroy {class_name}")
+                    )
+                    self.assertEqual(
+                            actual_output, mock_output.getvalue().strip()
+                    )
                 with patch("sys.stdout", new=StringIO()) as mock_output:
-                    self.assertFalse(HBNBCommand().onecmd(f"{class_name}.destroy()"))
-                    self.assertEqual(actual_output, mock_output.getvalue().strip())
+                    self.assertFalse(
+                            HBNBCommand().onecmd(f"{class_name}.destroy()")
+                    )
+                    self.assertEqual(
+                            actual_output, mock_output.getvalue().strip()
+                    )
 
     def test_destroy_id_missing_space_notation(self):
         """
         Tests 'destroy' command with missing instance ID (space notation).
         """
         actual_output = "** instance id missing **"
-        classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place",
+                "Review"
+        ]
 
         for class_name in classes:
             with self.subTest(class_name=class_name):
                 with patch("sys.stdout", new=StringIO()) as mock_output:
-                    self.assertFalse(HBNBCommand().onecmd(f"destroy {class_name}"))
-                    self.assertEqual(actual_output, mock_output.getvalue().strip())
+                    self.assertFalse(
+                            HBNBCommand().onecmd(f"destroy {class_name}")
+                    )
+                    self.assertEqual(
+                            actual_output, mock_output.getvalue().strip()
+                    )
 
     def test_destroy_id_missing_dot_notation(self):
         """
         Tests 'destroy' command with missing instance ID (dot notation).
         """
         actual_output = "** instance id missing **"
-        classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place",
+                "Review"
+        ]
 
         for class_name in classes:
             with patch("sys.stdout", new=StringIO()) as mock_output:
-                self.assertFalse(HBNBCommand().onecmd(f"{class_name}.destroy()"))
-                self.assertEqual(actual_output, mock_output.getvalue().strip())
+                self.assertFalse(
+                        HBNBCommand().onecmd(f"{class_name}.destroy()")
+                )
+                self.assertEqual(
+                        actual_output, mock_output.getvalue().strip()
+                )
 
     def test_destroy_invalid_id_space_notation(self):
         """
         Tests 'destroy' command with invalid instance ID (space notation).
         """
         actual_output = "** no instance found **"
-        classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place",
+                "Review"
+        ]
 
         for class_name in classes:
             with patch("sys.stdout", new=StringIO()) as mock_output:
-                self.assertFalse(HBNBCommand().onecmd(f"destroy {class_name} 1"))
-                self.assertEqual(actual_output, mock_output.getvalue().strip())
+                self.assertFalse(
+                        HBNBCommand().onecmd(f"destroy {class_name} 1")
+                )
+                self.assertEqual(
+                        actual_output, mock_output.getvalue().strip()
+                )
 
     def test_destroy_invalid_id_dot_notation(self):
         """
         Tests 'destroy' command with invalid instance ID (dot notation).
         """
         actual_output = "** no instance found **"
-        classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place",
+                "Review"
+        ]
 
         for class_name in classes:
             with patch("sys.stdout", new=StringIO()) as mock_output:
-                self.assertFalse(HBNBCommand().onecmd(f"{class_name}.destroy(1)"))
-                self.assertEqual(actual_output, mock_output.getvalue().strip())
+                self.assertFalse(
+                        HBNBCommand().onecmd(f"{class_name}.destroy(1)")
+                )
+                self.assertEqual(
+                        actual_output, mock_output.getvalue().strip()
+                )
 
     def test_destroy_objects_space_notation(self):
         """
@@ -855,8 +988,9 @@ class TestHBNBCommandDestroy(unittest.TestCase):
                 command = "destroy {} {}".format(class_name, test_id)
                 self.assertFalse(HBNBCommand().onecmd(command))
                 self.assertNotIn(obj, storage.all())
-
-                # Additional assertion to check if the object is destroyed
+                """
+                Additional assertion to check if the object is destroyed
+                """
                 self.assertNotIn(obj_key, storage.all())
 
     def test_destroy_objects_dot_notation(self):
@@ -886,8 +1020,9 @@ class TestHBNBCommandDestroy(unittest.TestCase):
                 command = "{}.destroy({})".format(class_name, test_id)
                 self.assertFalse(HBNBCommand().onecmd(command))
                 self.assertNotIn(obj, storage.all())
-
-                # Additional assertion to check if the object is destroyed
+                """
+                Additional assertion to check if the object is destroyed
+                """
                 self.assertNotIn(obj_key, storage.all())
 
 
@@ -899,7 +1034,7 @@ class TestHBNBCommandAll(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """
-        Set up the test class enviroment.
+        Sets up the test class enviroment.
         """
         try:
             os.rename("file.json", "tmp")
@@ -910,7 +1045,7 @@ class TestHBNBCommandAll(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         """
-        Tear down the test class environment.
+        Tears down the test class environment.
         """
         try:
             os.remove("file.json")
@@ -952,12 +1087,12 @@ class TestHBNBCommandAll(unittest.TestCase):
                 self.assertFalse(HBNBCommand().onecmd(create_command))
 
         actual_classes = [
-                "BaseModel", 
-                "User", 
-                "State", 
-                "Place", 
-                "City", 
-                "Amenity", 
+                "BaseModel",
+                "User",
+                "State",
+                "Place",
+                "City",
+                "Amenity",
                 "Review"
         ]
         with patch("sys.stdout", new=StringIO()) as mock_output:
@@ -987,24 +1122,30 @@ class TestHBNBCommandAll(unittest.TestCase):
                 self.assertFalse(HBNBCommand().onecmd(create_command))
 
         actual_classes = [
-                "BaseModel", 
-                "User", 
-                "State", 
-                "Place", 
-                "City", 
-                "Amenity", 
+                "BaseModel",
+                "User",
+                "State",
+                "Place",
+                "City",
+                "Amenity",
                 "Review"
         ]
         for class_name in actual_classes:
             with patch("sys.stdout", new=StringIO()) as mock_output:
-                self.assertFalse(HBNBCommand().onecmd("all {}".format(class_name)))
+                self.assertFalse(
+                        HBNBCommand().onecmd("all {}".format(class_name))
+                )
                 self.assertIn(class_name, mock_output.getvalue().strip())
                 for other_class in actual_classes:
                     if other_class != class_name:
-                        self.assertNotIn(other_class, mock_output.getvalue().strip())
+                        self.assertNotIn(
+                                other_class, mock_output.getvalue().strip()
+                        )
 
     def test_all_single_object_dot_notation(self):
-        """Test 'all' command for a single object using dot notation."""
+        """
+        Tests 'all' command for a single object using dot notation.
+        """
         create_commands = [
             "create BaseModel",
             "create User",
@@ -1020,19 +1161,647 @@ class TestHBNBCommandAll(unittest.TestCase):
                 self.assertFalse(HBNBCommand().onecmd(create_command))
 
         actual_classes = [
-                "BaseModel", 
-                "User", 
-                "State", 
-                "Place", 
-                "City", 
-                "Amenity", 
+                "BaseModel",
+                "User",
+                "State",
+                "Place",
+                "City",
+                "Amenity",
                 "Review"
         ]
         for class_name in actual_classes:
             with patch("sys.stdout", new=StringIO()) as mock_output:
-                self.assertFalse(HBNBCommand().onecmd("{}.all()".format(class_name)))
+                self.assertFalse(
+                        HBNBCommand().onecmd("{}.all()".format(class_name))
+                )
                 self.assertIn(class_name, mock_output.getvalue().strip())
                 for other_class in actual_classes:
                     if other_class != class_name:
-                        self.assertNotIn(other_class, mock_output.getvalue().strip())
+                        self.assertNotIn(
+                                other_class, mock_output.getvalue().strip()
+                        )
 
+
+class TestHBNBCommandUpdate(unittest.TestCase):
+    """
+    Unittests for testing the 'update' command in the HBNB command interpreter.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        """
+        Sets up the test class environment.
+        """
+        try:
+            os.rename("file.json", "tmp")
+        except IOError:
+            pass
+        FileStorage.__objects = {}
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Tears down the test class.
+        """
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("tmp", "file.json")
+        except IOError:
+            pass
+
+    def test_update_missing_class_name(self):
+        """
+        Tests 'update' command with missing class name.
+        """
+        proper_output = "** class name missing **"
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            self.assertFalse(HBNBCommand().onecmd("update"))
+            self.assertEqual(proper_output, mcok_output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd(".update()"))
+            self.assertEqual(proper_output, mock_output.getvalue().strip())
+
+    def test_update_invalid_class_name(self):
+        """
+        Tests 'update' command with invalid class name.
+        """
+        proper_output = "** class doesn't exist **"
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            self.assertFalse(HBNBCommand().onecmd("update MyModel"))
+            self.assertEqual(correct_output, output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("MyModel.update()"))
+            self.assertEqual(correct_output, output.getvalue().strip())
+
+    def test_update_missing_id_space_notation(self):
+        """
+        Tests 'update' command with missing id (space notation).
+        """
+        proper_output = "** instance id missing **"
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place",
+                "Review"
+        ]
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                self.assertFalse(
+                        HBNBCommand().onecmd(f"update {class_name}")
+                )
+                self.assertEqual(
+                        proper_output, mock_output.getvalue().strip()
+                )
+
+    def test_update_missing_id_dot_notation(self):
+        """
+        Tests 'update' command with missing id (dot notation).
+        """
+        proper_output = "** instance id missing **"
+        classes = ["BaseModel", "User"]
+        with patch("sys.stdout", new=StringIO()) as output:
+            for class_name in classes:
+                self.assertFalse(
+                        HBNBCommand().onecmd(f"{class_name}.update()")
+                )
+                self.assertEqual(
+                        correct_output, output.getvalue().strip()
+                )
+
+    def test_update_invalid_id_space_notation(self):
+        """
+        Tests 'update' command with invalid id (space notation).
+        """
+        proper_output = "** no instance found **"
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place",
+                "Review"
+        ]
+        with patch("sys.stdout", new=StringIO()) as mock_ output:
+            for class_name in classes:
+                self.assertFalse(
+                        HBNBCommand().onecmd(f"update {class_name} 1")
+                )
+                self.assertEqual(
+                        proper_output, mock_output.getvalue().strip()
+                )
+
+    def test_update_invalid_id_dot_notation(self):
+        """
+        Tests 'update' command with invalid id (dot notation).
+        """
+        actual_output = "** no instance found **"
+        classes = ["BaseModel", "User"]
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                self.assertFalse(
+                        HBNBCommand().onecmd(f"{class_name}.update(1)")
+                )
+                self.assertEqual(
+                        actual_output, mock_output.getvalue().strip()
+                )
+
+    def test_update_missing_attr_name_space_notation(self):
+        """
+        Tests 'update' command with missing attribute name (space notation).
+        """
+        proper_output = "** attribute name missing **"
+        classes = ["BaseModel", "User", "State", "City", "Amenity", "Place"]
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                self.assertFalse(HBNBCommand().onecmd(f"create {class_name}"))
+                testId = mock_output.getvalue().strip()
+                testCmd = f"update {class_name} {testId}"
+                self.assertFalse(HBNBCommand().onecmd(testCmd))
+                self.assertEqual(
+                        proper_output, mock_output.getvalue().strip()
+                )
+
+    def test_update_missing_attr_name_dot_notation(self):
+        """
+        Tests 'update' command with missing attribute name (dot notation).
+        """
+        proper_output = "** attribute name missing **"
+        classes = ["BaseModel", "User", "State", "City", "Amenity", "Place"]
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                self.assertFalse(HBNBCommand().onecmd(f"create {class_name}"))
+                testId = mock_output.getvalue().strip()
+                testCmd = f"{class_name}.update({testId})"
+                self.assertFalse(HBNBCommand().onecmd(testCmd))
+                self.assertEqual(proper_output, mock_output.getvalue().strip())
+
+    def test_update_missing_attr_value_space_notation(self):
+        """
+        Tests 'update' command with missing attribute value (space notation).
+        """
+        proper_output = "** value missing **"
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place",
+                "Review"
+        ]
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                HBNBCommand().onecmd(f"create {class_name}")
+                testId = mock_output.getvalue().strip()
+                testCmd = f"update {class_name} {testId} attr_name"
+                self.assertFalse(HBNBCommand().onecmd(testCmd))
+                self.assertEqual(
+                        proper_output, mock_output.getvalue().strip()
+                )
+
+    def test_update_missing_attr_value_dot_notation(self):
+        """
+        Tests 'update' command with missing attribute value (dot notation).
+        """
+        proper_output = "** value missing **"
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place",
+                "Review"
+        ]
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                HBNBCommand().onecmd(f"create {class_name}")
+                testId = mock_output.getvalue().strip()
+                testCmd = f"{class_name}.update({testId}, attr_name)"
+                self.assertFalse(HBNBCommand().onecmd(testCmd))
+                self.assertEqual(
+                        proper_output, mock_output.getvalue().strip()
+                )
+
+    def test_update_valid_string_attr_space_notation(self):
+        """
+        Tests 'update' command with valid string
+        attribute value (space notation).
+        """
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Place",
+                "Amenity",
+                "Review"
+        ]
+        attr_name = "attr_name"
+        attr_value = "attr_value"
+
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                HBNBCommand().onecmd(f"create {class_name}")
+                testId = mock_output.getvalue().strip()
+                testCmd = f"update {class_name} {testId}\
+                            {attr_name} '{attr_value}'"
+                self.assertFalse(HBNBCommand().onecmd(testCmd))
+                test_dict = storage.all()[
+                        f"{class_name}.{testId}"
+                ].__dict__
+                self.assertEqual(attr_value, test_dict[attr_name])
+
+    def test_update_valid_string_attr_dot_notation(self):
+        """
+        Tests 'update' command with valid string
+        attribute value (dot notation).
+        """
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Place",
+                "Amenity",
+                "Review"
+        ]
+        attr_name = "attr_name"
+        attr_value = "attr_value"
+
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                HBNBCommand().onecmd(f"create {class_name}")
+                tId = mock_output.getvalue().strip()
+                testCmd = f"{class_name}.update({{tId}},\
+                            {attr_name}, '{attr_value}')"
+                self.assertFalse(HBNBCommand().onecmd(testCmd))
+                test_dict = storage.all()[f"{class_name}.{tId}"].__dict__
+                self.assertEqual(attr_value, test_dict[attr_name])
+
+    def test_update_valid_int_attr_space_notation(self):
+        """
+        Tests 'update' command with valid integer
+        attribute value (space notation).
+        """
+        classes = ["Place"]
+        attr_name = "max_guest"
+        attr_value = 98
+
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                HBNBCommand().onecmd(f"create {class_name}")
+                testId = mock_output.getvalue().strip()
+                testCmd = f"update {class_name} {{testId}}\
+                            {attr_name} {attr_value}"
+                self.assertFalse(HBNBCommand().onecmd(testCmd))
+                test_dict = storage.all()[f"{class_name}.{testId}"].__dict__
+                self.assertEqual(attr_value, test_dict[attr_name])
+
+    def test_update_valid_int_attr_dot_notation(self):
+        """
+        Tests 'update' command with valid
+        integer attribute value (dot notation).
+        """
+        classes = ["Place"]
+        attr_name = "max_guest"
+        attr_value = 98
+
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                HBNBCommand().onecmd(f"create {class_name}")
+                tId = mock_output.getvalue().strip()
+                testCmd = f"{class_name}.update({{tId}},\
+                            {attr_name}, {attr_value})"
+                self.assertFalse(HBNBCommand().onecmd(testCmd))
+                test_dict = storage.all()[f"{class_name}.{tId}"].__dict__
+                self.assertEqual(attr_value, test_dict[attr_name])
+
+    def test_update_valid_float_attr_space_notation(self):
+        """
+        Tests 'update' command with valid float
+        attribute value (space notation).
+        """
+        classes = ["Place"]
+        attr_name = "latitude"
+        attr_value = 7.2
+
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                HBNBCommand().onecmd(f"create {class_name}")
+                testId = mock_output.getvalue().strip()
+                testCmd = f"update {class_name} {{testId}}\
+                            {attr_name} {attr_value}"
+                self.assertFalse(HBNBCommand().onecmd(testCmd))
+                test_dict = storage.all()[f"{class_name}.{testId}"].__dict__
+                self.assertEqual(attr_value, test_dict[attr_name])
+
+    def test_update_valid_float_attr_dot_notation(self):
+        """
+        Tests 'update' command with valid float attribute value (dot notation).
+        """
+        classes = ["Place"]
+        attr_name = "latitude"
+        attr_value = 7.2
+
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                HBNBCommand().onecmd(f"create {class_name}")
+                tId = mock_output.getvalue().strip()
+                testCmd = f"{class_name}.update({{tId}},\
+                            {attr_name}, {attr_value})"
+                self.assertFalse(HBNBCommand().onecmd(testCmd))
+                test_dict = storage.all()[f"{class_name}.{tId}"].__dict__
+                self.assertEqual(attr_value, test_dict[attr_name])
+
+    def test_update_valid_dictionary_space_notation(self):
+        """
+        Tests 'update' command with valid dictionary
+        attribute value (space notation).
+        """
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Place",
+                "Amenity",
+                "Review"
+        ]
+        attr_name = "attr_name"
+        attr_value = "attr_value"
+
+        for class_name in classes:
+            with patch("sys.stdout", new=StringIO()) as mock_output:
+                HBNBCommand().onecmd(f"create {class_name}")
+                testId = output.getvalue().strip()
+
+            testCmd = f"update {class_name} {{testId}}\
+                        {{{attr_name}: {attr_value}}}"
+            HBNBCommand().onecmd(testCmd)
+
+            obj_key = f"{class_name}.{testId}"
+            test_dict = storage.all()[obj_key].__dict__
+            self.assertEqual(attr_value, test_dict[attr_name])
+
+    def test_update_valid_dictionary_dot_notation(self):
+        """
+        Tests 'update' command with valid dictionary attribute
+        value (dot notation).
+        """
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City", "Place",
+                "Amenity",
+                "Review"
+        ]
+        attr_name = "attr_name"
+        attr_value = "attr_value"
+
+        for class_name in classes:
+            with patch("sys.stdout", new=StringIO()) as mock_output:
+                HBNBCommand().onecmd(f"create {class_name}")
+                testId = mock_output.getvalue().strip()
+
+            testCmd = f"{class_name}.update({{testId}},\
+                        {{'{attr_name}': '{attr_value}'}})"
+            HBNBCommand().onecmd(testCmd)
+
+            obj_key = f"{class_name}.{testId}"
+            test_dict = storage.all()[obj_key].__dict__
+            self.assertEqual(attr_value, test_dict[attr_name])
+
+    def test_update_valid_dictionary_with_int_space_notation(self):
+        """
+        Tests 'update' command with valid dictionary attribute value
+        as an integer (space notation).
+        """
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            HBNBCommand().onecmd("create Place")
+            testId = output.getvalue().strip()
+
+        attr_name = "max_guest"
+        attr_value = 98
+        testCmd = f"update Place {testId}\
+                    {{'{attr_name}': {attr_value}}}"
+        HBNBCommand().onecmd(testCmd)
+
+        obj_key = f"Place.{testId}"
+        test_dict = storage.all()[obj_key].__dict__
+        self.assertEqual(attr_value, test_dict[attr_name])
+
+    def test_update_valid_dictionary_with_int_dot_notation(self):
+        """
+        Tests 'update' command with valid dictionary attribute value
+        as an integer (dot notation).
+        """
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            HBNBCommand().onecmd("create Place")
+            testId = mock_output.getvalue().strip()
+
+        attr_name = "max_guest"
+        attr_value = 98
+        testCmd = f"Place.update({{testId}},\
+                    {{'{attr_name}': {attr_value}}})"
+        HBNBCommand().onecmd(testCmd)
+
+        obj_key = f"Place.{testId}"
+        test_dict = storage.all()[obj_key].__dict__
+        self.assertEqual(attr_value, test_dict[attr_name])
+
+    def test_update_valid_dictionary_with_float_space_notation(self):
+        """
+        Tests 'update' command with valid dictionary attribute value
+        as a float (space notation).
+        """
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            HBNBCommand().onecmd("create Place")
+            testId = mock_output.getvalue().strip()
+
+        attr_name = "latitude"
+        attr_value = 9.8
+        testCmd = f"update Place {testId}\
+                    {{'{attr_name}': {attr_value}}}"
+        HBNBCommand().onecmd(testCmd)
+
+        obj_key = f"Place.{testId}"
+        test_dict = storage.all()[obj_key].__dict__
+        self.assertEqual(attr_value, test_dict[attr_name])
+
+    def test_update_valid_dictionary_with_float_dot_notation(self):
+        """
+        Tests 'update' command with valid dictionary attribute value
+        as a float (dot notation).
+        """
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            HBNBCommand().onecmd("create Place")
+            testId = mock_output.getvalue().strip()
+
+        attr_name = "latitude"
+        attr_value = 9.8
+        testCmd = f"Place.update({{testId}},\
+                    {{'{attr_name}': {attr_value}}})"
+        HBNBCommand().onecmd(testCmd)
+
+        obj_key = f"Place.{testId}"
+        test_dict = storage.all()[obj_key].__dict__
+        self.assertEqual(attr_value, test_dict[attr_name])
+
+
+class TestHBNBCommandUpdate(unittest.TestCase):
+    """
+    Unit tests for testing the 'update' command
+    in the HBNB command interpreter.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        """
+        Sets up the test class environement.
+        """
+        try:
+            os.rename("file.json", "tmp")
+        except IOError:
+            pass
+        FileStorage.__objects = {}
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Tears down the test class environment.
+        """
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("tmp", "file.json")
+        except IOError:
+            pass
+
+    def test_update_invalid_id_dot_notation(self):
+        """
+        Tests 'update' command with invalid id (dot notation).
+        """
+        proper_output = "** no instance found **"
+        classes = ["BaseModel", "User"]
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                self.assertFalse(
+                        HBNBCommand().onecmd(f"{class_name}.update(1)")
+                )
+                self.assertEqual(
+                        proper_output, mock_output.getvalue().strip()
+                )
+
+    def test_update_missing_attr_name_space_notation(self):
+        """
+        Tests 'update' command with missing
+        attribute name (space notation).
+        """
+        proper_output = "** attribute name missing **"
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place"
+        ]
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                self.assertFalse(
+                        HBNBCommand().onecmd(f"create {class_name}")
+                )
+                test_id = mock_output.getvalue().strip()
+                test_cmd = f"update {class_name} {test_id}"
+                self.assertFalse(HBNBCommand().onecmd(test_cmd))
+                self.assertEqual(
+                        proper_output, mock_output.getvalue().strip()
+                )
+
+    def test_update_missing_attr_name_dot_notation(self):
+        """
+        Tests 'update' command with missing attribute name (dot notation).
+        """
+        proper_output = "** attribute name missing **"
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place"
+        ]
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                self.assertFalse(
+                        HBNBCommand().onecmd(f"create {class_name}")
+                )
+                test_id = mock_output.getvalue().strip()
+                test_cmd = f"{class_name}.update({test_id})"
+                self.assertFalse(HBNBCommand().onecmd(test_cmd))
+                self.assertEqual(
+                        proper_output, mock_output.getvalue().strip()
+                )
+
+    def test_update_missing_attr_value_space_notation(self):
+        """
+        Tests 'update' command with missing
+        attribute value (space notation).
+        """
+        proper_output = "** value missing **"
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place",
+                "Review"
+        ]
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                HBNBCommand().onecmd(f"create {class_name}")
+                test_id = mock_output.getvalue().strip()
+                test_cmd = f"update {class_name} {test_id} attr_name"
+                self.assertFalse(HBNBCommand().onecmd(test_cmd))
+                self.assertEqual(
+                        proper_output, mock_output.getvalue().strip()
+                )
+
+    def test_update_missing_attr_value_dot_notation(self):
+        """
+        Tests 'update' command with missing attribute value (dot notation).
+        """
+        proper_output = "** value missing **"
+        classes = [
+                "BaseModel",
+                "User",
+                "State",
+                "City",
+                "Amenity",
+                "Place",
+                "Review"
+        ]
+
+        with patch("sys.stdout", new=StringIO()) as mock_output:
+            for class_name in classes:
+                HBNBCommand().onecmd(f"create {class_name}")
+                test_id = mock_output.getvalue().strip()
+                test_cmd = f"{class_name}.update({{test_id}}, attr_name)"
+                self.assertFalse(HBNBCommand().onecmd(test_cmd))
+                self.assertEqual(proper_output, mock_output.getvalue().strip())
+
+
+if __name__ == "__main__":
+    unittest.main()
