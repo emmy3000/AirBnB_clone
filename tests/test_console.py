@@ -431,10 +431,10 @@ class TestHBNBCommandShow(unittest.TestCase):
 
         for cls in classes:
             with self.subTest(cls=cls):
-                with patch("sys.stdout", new=StringIO()) as output:
+                with patch("sys.stdout", new=StringIO()) as mock_output:
                     self.assertFalse(HBNBCommand().onecmd(f"show {cls}"))
                     self.assertEqual(
-                            actual_output, output.getvalue().strip()
+                            actual_output, mock_output.getvalue().strip()
                     )
 
     def test_show_missing_id_dot_notation(self):
