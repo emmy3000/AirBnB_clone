@@ -80,7 +80,7 @@ class TestHBNBCommandHelp(unittest.TestCase):
             command_interpreter.onecmd("help create")
             actual_output = mock_output.getvalue().strip()
             self.assertFalse(actual_output)
-            self.assertEqual(actual_output, actual_output)
+            self.assertEqual(actual_output, mock_output)
 
     def test_help_EOF_command(self):
         """
@@ -92,7 +92,7 @@ class TestHBNBCommandHelp(unittest.TestCase):
             command_interpreter.onecmd("help EOF")
             actual_output = mock_output.getvalue().strip()
             self.assertFalse(actual_output)
-            self.assertEqual(actual_output, actual_output)
+            self.assertEqual(actual_output, mock_output)
 
     def test_help_show_command(self):
         """
@@ -108,7 +108,7 @@ class TestHBNBCommandHelp(unittest.TestCase):
             command_interpreter.onecmd("help show")
             actual_output = mock_output.getvalue().strip()
             self.assertFalse(actual_output)
-            self.assertEqual(actual_output, actual_output)
+            self.assertEqual(actual_output, mock_output)
 
     def test_help_destroy_command(self):
         """
@@ -123,7 +123,7 @@ class TestHBNBCommandHelp(unittest.TestCase):
             command_interpreter.onecmd("help destroy")
             actual_output = mock_output.getvalue().strip()
             self.assertFalse(actual_output)
-            self.assertEqual(actual_output, actual_output)
+            self.assertEqual(actual_output, mock_output)
 
     def test_help_all_command(self):
         """
@@ -136,9 +136,9 @@ class TestHBNBCommandHelp(unittest.TestCase):
             "       If no class is specified, displays all\
             instantiated objects."
         )
-        with patch("sys.stdout", new=StringIO()) as output:
+        with patch("sys.stdout", new=StringIO()) as mock_output:
             self.assertFalse(HBNBCommand().onecmd("help all"))
-            self.assertEqual(actual_output, output.getvalue().strip())
+            self.assertEqual(actual_output, mock_output.getvalue().strip())
 
     def test_help_count_command(self):
         """
@@ -148,9 +148,9 @@ class TestHBNBCommandHelp(unittest.TestCase):
             "Usage: count <class > or <class >.count()\n"
             "       Retrieve the number of instances of a given class."
         )
-        with patch("sys.stdout", new=StringIO()) as output:
+        with patch("sys.stdout", new=StringIO()) as mock_output:
             self.assertFalse(HBNBCommand().onecmd("help count"))
-            self.assertEqual(actual_output, output.getvalue().strip())
+            self.assertEqual(actual_output, mock_output.getvalue().strip())
 
     def test_help_update_command(self):
         """
@@ -163,9 +163,9 @@ class TestHBNBCommandHelp(unittest.TestCase):
                 "Update a class instance of a given id by adding or updating\n"
                 "a given attribute key/value pair or dictionary."
         )
-        with patch("sys.stdout", new=StringIO()) as output:
+        with patch("sys.stdout", new=StringIO()) as mock_output:
             self.assertFalse(HBNBCommand().onecmd("help update"))
-            self.assertEqual(actual_output, output.getvalue().strip())
+            self.assertEqual(actual_output, mock_output.getvalue().strip())
 
     def test_help_general(self):
         """
@@ -176,9 +176,9 @@ class TestHBNBCommandHelp(unittest.TestCase):
             " == == == == == == == == == == == == == == == == == == == ==\n"
             "EOF all count create destroy help quit show update"
         )
-        with patch("sys.stdout", new=StringIO()) as output:
+        with patch("sys.stdout", new=StringIO()) as mock_output:
             self.assertFalse(HBNBCommand().onecmd("help"))
-            self.assertEqual(actual_output, output.getvalue().strip())
+            self.assertEqual(actual_output, mock_output.getvalue().strip())
 
 
 class TestHBNBCommandExit(unittest.TestCase):
@@ -252,23 +252,27 @@ class TestHBNBCommandCreate(unittest.TestCase):
         Tests creating an instance with an invalid class name.
         """
         actual_output = " ** class doesn't exist * *"
-        with patch("sys.stdout", new=StringIO()) as output:
+        with patch("sys.stdout", new=StringIO()) as mock_output:
             self.assertFalse(HBNBCommand().onecmd("create MyModel"))
-            self.assertEqual(actual_output, output.getvalue().strip())
+            self.assertEqual(actual_output, mock_output.getvalue().strip())
 
     def test_create_invalid_syntax(self):
         """
         Tests creating an instance with invalid syntax.
         """
         actual_output = " ** * Unknown syntax: MyModel.create()"
-        with patch("sys.stdout", new=StringIO()) as output:
+        with patch("sys.stdout", new=StringIO()) as mock_output:
             self.assertFalse(HBNBCommand().onecmd("MyModel.create()"))
-            self.assertEqual(actual_output, output.getvalue().strip())
+            self.assertEqual(
+                    actual_output, mock_output.getvalue().strip()
+            )
 
         actual_output = " ** * Unknown syntax: BaseModel.create()"
-        with patch("sys.stdout", new=StringIO()) as output:
+        with patch("sys.stdout", new=StringIO()) as mock_output:
             self.assertFalse(HBNBCommand().onecmd("BaseModel.create()"))
-            self.assertEqual(actual_output, output.getvalue().strip())
+            self.assertEqual(
+                    actual_output, mock_output.getvalue().strip()
+            )
 
     def test_create_instances_of_different_classes(self):
         """
@@ -298,7 +302,8 @@ class TestHBNBCommandCreate(unittest.TestCase):
 
 class TestHBNBCommandShow(unittest.TestCase):
     """
-    Unit tests for testing the 'show' command in the HBNB command interpreter.
+    Unit tests for testing the 'show' command
+    in the HBNB command interpreter.
     """
 
     @classmethod
@@ -390,7 +395,9 @@ class TestHBNBCommandShow(unittest.TestCase):
             with self.subTest(cmd=cmd):
                 with patch("sys.stdout", new=StringIO()) as mock_output:
                     self.assertFalse(HBNBCommand().onecmd(cmd))
-                    self.assertEqual(actual_output, output.getvalue().strip())
+                    self.assertEqual(
+                            actual_output, mock_output.getvalue().strip()
+                    )
 
     def test_show_invalid_class(self):
         """
