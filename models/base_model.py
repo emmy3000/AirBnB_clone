@@ -11,17 +11,32 @@ class BaseModel:
     other classes.
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
         Initializes a new instance of the BaseModel class.
 
-        The instance is asssigned a unique id using `uuid.uuid(4)`
-        and the `created_at` and `updated_at` attributes are set to
-        the current datetime.
+        Args:
+            *args: Tuple of arguments
+            **kwargs: Dictionary of key-value arguments.
         """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = self.created_at
+        if kwargs:
+            """
+            Sets attributes based on the provided kwargs dicts.
+            """
+            for key, value in kwargs.items():
+                if key != "__class__":
+                    if key == "created_at" or key == "updated_at":
+                        setattr(
+                                self, key, datetime.strptime(
+                                    value, "%Y-%m-%dT%H:%M:%S.%f"
+                                )
+                        )
+                    else:
+                        setattr(self, key, value)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = self.created_at
 
     def save(self):
         """
