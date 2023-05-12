@@ -64,7 +64,7 @@ class TestHBNBCommandHelp(unittest.TestCase):
             command_interpreter.onecmd("help quit")
             actual_output = mock_output.getvalue().strip()
             self.assertFalse(actual_output)
-            self.assertEqual(actual_output, actual_output)
+            self.assertEqual(actual_output, mock_output)
 
     def test_help_create_command(self):
         """
