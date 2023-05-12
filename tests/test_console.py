@@ -20,7 +20,7 @@ class TestHBNBCommandPrompting(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """
-        Set up any necessary resources for the test class.
+        Sets up any necessary resources for the test class.
         """
         cls.command_interpreter = HBNBCommand()
 
@@ -35,8 +35,8 @@ class TestHBNBCommandPrompting(unittest.TestCase):
         """
         Tests if the prompt string is correctly set.
         """
-        expected_prompt = "(hbnb) "
-        self.assertEqual(expected_prompt, self.command_interpreter.prompt)
+        actual_prompt = "(hbnb) "
+        self.assertEqual(actual_prompt, self.command_interpreter.prompt)
 
     def test_empty_line_behavior(self):
         """
@@ -214,7 +214,7 @@ class TestHBNBCommandCreate(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """
-        Set up the test environment before running the test cases.
+        Sets up the test environment before running the test cases.
         """
         try:
             os.rename("file.json", "tmp")
@@ -225,7 +225,7 @@ class TestHBNBCommandCreate(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         """
-        Tear down the test environment after running the test cases.
+        Tears down the test environment after running the test cases.
         """
         try:
             os.remove("file.json")
@@ -304,7 +304,7 @@ class TestHBNBCommandShow(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """
-        Set up class method to prepare for the test case.
+        Sets up class method to prepare for the test case.
         """
         try:
             os.rename("file.json", "tmp")
@@ -315,7 +315,7 @@ class TestHBNBCommandShow(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         """
-        Tear down class method to clean up after the test case.
+        Tears down class method to clean up after the test case.
         """
         try:
             os.remove("file.json")
@@ -328,7 +328,7 @@ class TestHBNBCommandShow(unittest.TestCase):
 
     def test_show_missing_class(self):
         """
-        Test showing an instance with a missing class name.
+        Tests showing an instance with a missing class name.
         """
         actual_output = "** class name missing **"
         commands = ["show", ".show()"]
@@ -343,7 +343,7 @@ class TestHBNBCommandShow(unittest.TestCase):
 
     def test_show_invalid_class(self):
         """
-        Test showing an instance with an invalid class name.
+        Tests showing an instance with an invalid class name.
         """
         actual_output = "** class doesn't exist **"
         commands = ["show MyModel", "MyModel.show()"]
@@ -358,7 +358,7 @@ class TestHBNBCommandShow(unittest.TestCase):
 
     def test_show_missing_id_space_notation(self):
         """
-        Test showing an instance with a missing ID using space notation.
+        Tests showing an instance with a missing ID using space notation.
         """
         actual_output = "** instance id missing **"
         classes = [
@@ -381,7 +381,7 @@ class TestHBNBCommandShow(unittest.TestCase):
 
     def test_show_missing_class(self):
         """
-        Test showing an instance with a missing class name.
+        Tests showing an instance with a missing class name.
         """
         actual_output = "** class name missing **"
         commands = ["show", ".show()"]
@@ -394,7 +394,7 @@ class TestHBNBCommandShow(unittest.TestCase):
 
     def test_show_invalid_class(self):
         """
-        Test showing an instance with an invalid class name.
+        Tests showing an instance with an invalid class name.
         """
         actual_output = "** class doesn't exist **"
         commands = ["show MyModel", "MyModel.show()"]
@@ -409,7 +409,7 @@ class TestHBNBCommandShow(unittest.TestCase):
 
     def test_show_missing_id_space_notation(self):
         """
-        Test showing an instance with a missing ID using space notation.
+        Tests showing an instance with a missing ID using space notation.
         """
         actual_output = "** instance id missing **"
         classes = [
@@ -432,7 +432,7 @@ class TestHBNBCommandShow(unittest.TestCase):
 
     def test_show_missing_id_dot_notation(self):
         """
-        Test showing an instance with a missing ID using dot notation.
+        Tests showing an instance with a missing ID using dot notation.
         """
         actual_output = "** instance id missing **"
         classes = [
@@ -447,12 +447,12 @@ class TestHBNBCommandShow(unittest.TestCase):
 
         for cls in classes:
             with self.subTest(cls=cls):
-                with patch("sys.stdout", new=StringIO()) as output:
+                with patch("sys.stdout", new=StringIO()) as mock_output:
                     self.assertFalse(
                             HBNBCommand().onecmd(f"{cls}.show()")
                     )
                     self.assertEqual(
-                            actual_output, output.getvalue().strip()
+                            actual_output, mock_output.getvalue().strip()
                     )
 
     def test_show_no_instance_found_space_notation(self):
@@ -477,7 +477,7 @@ class TestHBNBCommandShow(unittest.TestCase):
                             HBNBCommand().onecmd(f"show {cls} 1")
                     )
                     self.assertEqual(
-                            actual_output, output.getvalue().strip()
+                            actual_output, mock_output.getvalue().strip()
                     )
 
     def test_show_no_instance_found_dot_notation(self):
@@ -622,7 +622,7 @@ class TestHBNBCommandShow(unittest.TestCase):
                 result = HBNBCommand().onecmd(command)
                 self.assertFalse(result)
                 self.assertEqual(
-                        actual_output, output.getvalue().strip()
+                        actual_output, mock_output.getvalue().strip()
                 )
 
     def test_show_objects_space_notation(self):
@@ -642,7 +642,7 @@ class TestHBNBCommandShow(unittest.TestCase):
         for command in commands:
             with patch("sys.stdout", new=StringIO()) as mock_output:
                 self.assertFalse(HBNBCommand().onecmd(command))
-                obj_id = output.getvalue().strip()
+                obj_id = mock_output.getvalue().strip()
 
             obj_type = command.split(" ")[1]
             obj = storage.all()["{}.{}".format(obj_type, obj_id)]
@@ -801,7 +801,7 @@ class TestHBNBCommandDestroy(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """
-        Set up class method to prepare for the test case.
+        Sets up class method to prepare for the test case.
         """
         try:
             os.rename("file.json", "tmp")
@@ -812,7 +812,7 @@ class TestHBNBCommandDestroy(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         """
-        Tear down class method to clean up after the test case.
+        Tears down class method to clean up after the test case.
         """
         try:
             os.remove("file.json")
@@ -1063,10 +1063,14 @@ class TestHBNBCommandAll(unittest.TestCase):
         actual_output = "** class doesn't exist **"
         with patch("sys.stdout", new=StringIO()) as mock_output:
             self.assertFalse(HBNBCommand().onecmd("all MyModel"))
-            self.assertEqual(actual_output, mock_output.getvalue().strip())
+            self.assertEqual(
+                    actual_output, mock_output.getvalue().strip()
+            )
         with patch("sys.stdout", new=StringIO()) as mock_output:
             self.assertFalse(HBNBCommand().onecmd("MyModel.all()"))
-            self.assertEqual(actual_output, mock_output.getvalue().strip())
+            self.assertEqual(
+                    actual_output, mock_output.getvalue().strip()
+            )
 
     def test_all_objects_space_notation(self):
         """
@@ -1184,7 +1188,8 @@ class TestHBNBCommandAll(unittest.TestCase):
 
 class TestHBNBCommandUpdate(unittest.TestCase):
     """
-    Unittests for testing the 'update' command in the HBNB command interpreter.
+    Unittests for testing the 'update' command
+    in the HBNB command interpreter.
     """
 
     @classmethod
@@ -1219,10 +1224,14 @@ class TestHBNBCommandUpdate(unittest.TestCase):
         proper_output = "** class name missing **"
         with patch("sys.stdout", new=StringIO()) as mock_output:
             self.assertFalse(HBNBCommand().onecmd("update"))
-            self.assertEqual(proper_output, mcok_output.getvalue().strip())
+            self.assertEqual(
+                    proper_output, mcok_output.getvalue().strip()
+            )
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd(".update()"))
-            self.assertEqual(proper_output, mock_output.getvalue().strip())
+            self.assertEqual(
+                    proper_output, mock_output.getvalue().strip()
+            )
 
     def test_update_invalid_class_name(self):
         """
@@ -1467,8 +1476,8 @@ class TestHBNBCommandUpdate(unittest.TestCase):
 
     def test_update_valid_int_attr_dot_notation(self):
         """
-        Tests 'update' command with valid
-        integer attribute value (dot notation).
+        Tests 'update' command with valid integer
+        attribute value (dot notation).
         """
         classes = ["Place"]
         attr_name = "max_guest"
@@ -1541,7 +1550,7 @@ class TestHBNBCommandUpdate(unittest.TestCase):
         for class_name in classes:
             with patch("sys.stdout", new=StringIO()) as mock_output:
                 HBNBCommand().onecmd(f"create {class_name}")
-                testId = output.getvalue().strip()
+                testId = mock_output.getvalue().strip()
 
             testCmd = f"update {class_name} {{testId}}\
                         {{{attr_name}: {attr_value}}}"
@@ -1587,7 +1596,7 @@ class TestHBNBCommandUpdate(unittest.TestCase):
         """
         with patch("sys.stdout", new=StringIO()) as mock_output:
             HBNBCommand().onecmd("create Place")
-            testId = output.getvalue().strip()
+            testId = mock_output.getvalue().strip()
 
         attr_name = "max_guest"
         attr_value = 98
@@ -1800,7 +1809,9 @@ class TestHBNBCommandUpdate(unittest.TestCase):
                 test_id = mock_output.getvalue().strip()
                 test_cmd = f"{class_name}.update({{test_id}}, attr_name)"
                 self.assertFalse(HBNBCommand().onecmd(test_cmd))
-                self.assertEqual(proper_output, mock_output.getvalue().strip())
+                self.assertEqual(
+                        proper_output, mock_output.getvalue().strip()
+                )
 
 
 if __name__ == "__main__":
