@@ -13,7 +13,7 @@ from .console import HBNBCommand
 
 class TestHBNBCommandPrompting(unittest.TestCase):
     """
-    Unittests for testing the prompt functionalities
+    Unit tests for testing the prompt functionalities
     of the HBNB command interpreter.
     """
 
@@ -51,7 +51,7 @@ class TestHBNBCommandPrompting(unittest.TestCase):
 
 class TestHBNBCommandHelp(unittest.TestCase):
     """
-    Unittests for testing help messages of the HBNB command interpreter.
+    Unit tests for testing help messages of the HBNB command interpreter.
     """
 
     def test_help_quit_command(self):
@@ -183,7 +183,7 @@ class TestHBNBCommandHelp(unittest.TestCase):
 
 class TestHBNBCommandExit(unittest.TestCase):
     """
-    Unittests for testing exiting from the HBNB command interpreter.
+    Unit tests for testing exiting from the HBNB command interpreter.
     """
 
     def test_quit_command_exits(self):
@@ -207,7 +207,7 @@ class TestHBNBCommandExit(unittest.TestCase):
 
 class TestHBNBCommandCreate(unittest.TestCase):
     """
-    Unittests for testing the 'create' command in the HBNB
+    Unit tests for testing the 'create' command in the HBNB
     command interpreter.
     """
 
@@ -298,7 +298,7 @@ class TestHBNBCommandCreate(unittest.TestCase):
 
 class TestHBNBCommandShow(unittest.TestCase):
     """
-    Unittests for testing the 'show' command in the HBNB command interpreter.
+    Unit tests for testing the 'show' command in the HBNB command interpreter.
     """
 
     @classmethod
