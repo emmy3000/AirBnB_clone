@@ -330,7 +330,7 @@ class TestHBNBCommandShow(unittest.TestCase):
         """
         Test showing an instance with a missing class name.
         """
-        correct = "** class name missing **"
+        actual_output = "** class name missing **"
         commands = ["show", ".show()"]
 
         for cmd in commands:
@@ -343,7 +343,7 @@ class TestHBNBCommandShow(unittest.TestCase):
         """
         Test showing an instance with an invalid class name.
         """
-        correct = "** class doesn't exist **"
+        actual_output = "** class doesn't exist **"
         commands = ["show MyModel", "MyModel.show()"]
 
         for cmd in commands:
@@ -356,7 +356,7 @@ class TestHBNBCommandShow(unittest.TestCase):
         """
         Test showing an instance with a missing ID using space notation.
         """
-        correct = "** instance id missing **"
+        actual_output = "** instance id missing **"
         classes = [
                 "BaseModel",
                 "User",
@@ -377,7 +377,7 @@ class TestHBNBCommandShow(unittest.TestCase):
         """
         Test showing an instance with a missing class name.
         """
-        correct = "** class name missing **"
+        actual_output = "** class name missing **"
         commands = ["show", ".show()"]
 
         for cmd in commands:
@@ -390,7 +390,7 @@ class TestHBNBCommandShow(unittest.TestCase):
         """
         Test showing an instance with an invalid class name.
         """
-        correct = "** class doesn't exist **"
+        actual_output = "** class doesn't exist **"
         commands = ["show MyModel", "MyModel.show()"]
 
         for cmd in commands:
@@ -403,7 +403,7 @@ class TestHBNBCommandShow(unittest.TestCase):
         """
         Test showing an instance with a missing ID using space notation.
         """
-        correct = "** instance id missing **"
+        actual_output = "** instance id missing **"
         classes = [
                 "BaseModel",
                 "User",
@@ -418,13 +418,13 @@ class TestHBNBCommandShow(unittest.TestCase):
             with self.subTest(cls=cls):
                 with patch("sys.stdout", new=StringIO()) as output:
                     self.assertFalse(HBNBCommand().onecmd(f"show {cls}"))
-                    self.assertEqual(correct, output.getvalue().strip())
+                    self.assertEqual(actual_output, output.getvalue().strip())
 
     def test_show_missing_id_dot_notation(self):
         """
         Test showing an instance with a missing ID using dot notation.
         """
-        correct = "** instance id missing **"
+        actual_output = "** instance id missing **"
         classes = [
                 "BaseModel",
                 "User",
@@ -439,13 +439,13 @@ class TestHBNBCommandShow(unittest.TestCase):
             with self.subTest(cls=cls):
                 with patch("sys.stdout", new=StringIO()) as output:
                     self.assertFalse(HBNBCommand().onecmd(f"{cls}.show()"))
-                    self.assertEqual(correct, output.getvalue().strip())
+                    self.assertEqual(actual_output, output.getvalue().strip())
 
     def test_show_no_instance_found_space_notation(self):
         """
         Test showing an instance that doesn't exist using space notation.
         """
-        correct = "** no instance found **"
+        actual_output = "** no instance found **"
         classes = [
                 "BaseModel",
                 "User",
@@ -466,7 +466,7 @@ class TestHBNBCommandShow(unittest.TestCase):
         """
         Test showing an instance that doesn't exist using dot notation.
         """
-        correct = "** no instance found **"
+        actual_output = "** no instance found **"
         classes = [
                 "BaseModel",
                 "User",
