@@ -3,7 +3,6 @@
 import uuid
 
 from datetime import datetime
-from models.engine.file_storage import FileStorage
 from models import storage
 
 
@@ -21,31 +20,43 @@ class BaseModel:
             *args: Tuple of arguments
             **kwargs: Dictionary of key-value arguments.
         """
-        if kwargs:
-            """
-            Sets attributes based on the provided kwargs dicts.
-            """
-            for key, value in kwargs.items():
-                if key != "__class__":
-                    if key == "created_at" or key == "updated_at":
-                        setattr(
-                                self, key, datetime.strptime(
-                                    value, "%Y-%m-%dT%H:%M:%S.%f"
-                                )
-                        )
-                    else:
-                        setattr(self, key, value)
+        if kwargs is not None and kwargs != {}:
+            for key in kwargs:
+                if key == "created_at":
+                    self.__dict__["created_at"] = datetime.strptime(
+                            kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f"
+                    )
+                elif key == "updated_at":
+                    self.__dict__["updated_at"] = datetime.strptime(
+                            kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f"
+                    )
+                else:
+                    self.__dict__[key] = kwargs[key]
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
-            self.updated_at = self.created_at
-        storage.new(self)
+            self.updated_at = datetime.now()
+            storage.new(self)
+
+    def __str__(self):
+        """
+        Retrieves an informal string representation of the BaseModel object.
+
+        Return:
+        A string in the format: "[class name] (id) {attribute dictionary}"
+        """
+        return "[{}] ({}) {}".format(
+                self.__class__.__name__,
+                self.id,
+                self.__dict__
+        )
 
     def save(self):
         """
-        Updates the `updated_at` attribute with the current datetime.
+        Update the `updated_at` attribute with the current datetime.
         """
-        self.upated_at = datetime.now()
+        self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """
@@ -56,20 +67,7 @@ class BaseModel:
             the class name, creation datetime, and update datetime.
         """
         obj_dict = self.__dict__.copy()
-        obj_dict['__class__'] = self.__class__.__name__
-        obj_dict['created_at'] = self.created_at.isoformat()
-        obj_dict['updated_at'] = self.updated_at.isoformat()
+        obj_dict["__class__"] = self.__class__.__name__
+        obj_dict["created_at"] = self.created_at.isoformat()
+        obj_dict["updated_at"] = self.updated_at.isoformat()
         return obj_dict
-
-    def __str__(self):
-        """
-        Return an informal string representation of the BaseModel object.
-
-        Returns:
-            A string in the format: "[class name] (id) {attribute dictionary}"
-        """
-        return "[{}] ({}) {}".format(
-                self.__class__.__name__,
-                self.id,
-                self.__dict__
-        )

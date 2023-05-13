@@ -72,7 +72,7 @@ class TestHBNBCommandHelp(unittest.TestCase):
         """
         actual_output = (
             "Usage: create <class >\n"
-            "       Create a new instance of the specified class
+            "       Create a new instance of the specified class\
             and print its id."
         )
         with patch("sys.stdout", new=StringIO()) as mock_output:
@@ -1304,7 +1304,7 @@ class TestHBNBCommandUpdate(unittest.TestCase):
                 "Place",
                 "Review"
         ]
-        with patch("sys.stdout", new=StringIO()) as mock_ output:
+        with patch("sys.stdout", new=StringIO()) as mock_output:
             for class_name in classes:
                 self.assertFalse(
                         HBNBCommand().onecmd(f"update {class_name} 1")
