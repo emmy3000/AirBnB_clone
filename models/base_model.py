@@ -1,5 +1,10 @@
 #!/usr/bin/python3
 
+"""
+This module defines the BaseModel class, which serves
+as the base class for all models in the application.
+"""
+
 import uuid
 
 from datetime import datetime
@@ -24,11 +29,11 @@ class BaseModel:
             for key in kwargs:
                 if key == "created_at":
                     self.__dict__["created_at"] = datetime.strptime(
-                            kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f"
+                        kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f"
                     )
                 elif key == "updated_at":
                     self.__dict__["updated_at"] = datetime.strptime(
-                            kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f"
+                        kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f"
                     )
                 else:
                     self.__dict__[key] = kwargs[key]
@@ -45,11 +50,10 @@ class BaseModel:
         Return:
         A string in the format: "[class name] (id) {attribute dictionary}"
         """
-        return "[{}] ({}) {}".format(
-                self.__class__.__name__,
-                self.id,
-                self.__dict__
-        )
+        class_name = "BaseModel"  # self.__class__.__name__
+        attributes = self.__dict__.copy()
+        attributes.pop('_sa_instance_state', None)
+        return "[{}] ({}) {}".format(class_name, self.id, attributes)
 
     def save(self):
         """

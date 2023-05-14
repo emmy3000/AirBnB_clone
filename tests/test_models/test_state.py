@@ -66,5 +66,6 @@ class TestState(unittest.TestCase):
                 type(getattr(state, attr_name, None)), attr_type
             )
 
+
 if __name__ == "__main__":
     unittest.main()

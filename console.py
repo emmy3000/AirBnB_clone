@@ -63,13 +63,13 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
     available_classes = {
-            "BaseModel",
-            "User",
-            "State",
-            "City",
-            "Place",
-            "Amenity",
-            "Review"
+        "BaseModel",
+        "User",
+        "State",
+        "City",
+        "Place",
+        "Amenity",
+        "Review"
     }
 
     def emptyline(self):
@@ -182,16 +182,14 @@ class HBNBCommand(cmd.Cmd):
 
         If no class is specified, displays all instantiated objects.
         """
-        args = parse_args(arg)
-        if args and args[0] not in self.available_classes:
+        class_name = parse_args(arg)
+        if len(class_name) > 0 and class_name[0] not in HBNBCommand.available_classes:
             print("** class doesn't exist **")
         else:
-            object_list = []
-            for obj in storage.all().values():
-                if args and args[0] == obj.__class__.__name__:
-                    object_list.append(obj.__str__())
-                elif not args:
-                    object_list.append(obj.__str__())
+            object_list = [
+                obj.__str__() for obj in storage.all().values()
+                if len(class_name) == 0 or obj.__class__.__name__ == class_name[0]
+            ]
             print(object_list)
 
     def do_count(self, arg):
@@ -202,9 +200,13 @@ class HBNBCommand(cmd.Cmd):
         """
         args = parse_args(arg)
         count = 0
-        for obj in storage.all().values():
-            if args and args[0] == obj.__class__.__name__:
-                count += 1
+        class_name = args[0] if args else None
+        if class_name:
+            for obj in storage.all().values():
+                if obj.__class__.__name__ == class_name:
+                    count += 1
+        else:
+            count = len(storage.all())
         print(count)
 
     def do_update(self, arg):

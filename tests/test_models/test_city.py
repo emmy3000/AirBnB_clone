@@ -68,21 +68,10 @@ class TestCity(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()#!/usr/bin/python3
+    unittest.main()  # !/usr/bin/python3
 """
 Unittest module for the City class.
 """
-import unittest
-import os
-from datetime import datetime
-import time
-import re
-import json
-
-from models.city import City
-from models.engine.file_storage import FileStorage
-from models import storage
-from models.base_model import BaseModel
 
 
 class TestCity(unittest.TestCase):

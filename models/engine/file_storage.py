@@ -39,7 +39,8 @@ class FileStorage:
         Serializes __objects to the JSON file.
         """
         file_path = FileStorage.__file_path
-        obj = {key: value.to_dict() for key, value in FileStorage.__objects.items()}
+        obj = {key: value.to_dict()
+               for key, value in FileStorage.__objects.items()}
         with open(file_path, "w", encoding="utf-8") as obj_file:
             json.dump(obj, obj_file)
 
@@ -61,13 +62,13 @@ class FileStorage:
         from models.review import Review
 
         classes = {
-                "BaseModel": BaseModel,
-                "User": User,
-                "State": State,
-                "City": City,
-                "Amenity": Amenity,
-                "Place": Place,
-                "Review": Review
+            "BaseModel": BaseModel,
+            "User": User,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Place": Place,
+            "Review": Review
         }
         return classes
 
@@ -96,10 +97,10 @@ class FileStorage:
                 }
                 FileStorage.__objects = obj_dict
         except json.JSONDecodeError:
-            # Handle the case when the JSON file is empty or contains invalid data
+            # Handles when the JSON file is empty or contains invalid data
             print("Error: Invalid JSON data. File will be recreated.")
             FileStorage.__objects = {}
-        
+
     def to_dict(self):
         """
         Serializes the objects(JSON data in this case) in storage
@@ -122,3 +123,50 @@ class FileStorage:
                 cls = cls_dict[class_name]
                 obj = cls(**value)
                 FileStorage.__objects[key] = obj
+
+    def attributes(self):
+        """
+        Returns the valid attributes and their types for classname.
+        """
+        attributes = {
+            "BaseModel": {
+                "id": str,
+                "created_at": datetime.datetime,
+                "updated_at": datetime.datetime
+            },
+            "User": {
+                "email": str,
+                "password": str,
+                "first_name": str,
+                "last_name": str
+            },
+            "State": {
+                "name": str
+            },
+            "City": {
+                "state_id": str,
+                "name": str
+            },
+            "Amenity": {
+                "name": str
+            },
+            "Place": {
+                "city_id": str,
+                "user_id": str,
+                "name": str,
+                "description": str,
+                "number_rooms": int,
+                "number_bathrooms": int,
+                "max_guest": int,
+                "price_by_night": int,
+                "latitude": float,
+                "longitude": float,
+                "amenity_ids": list
+            },
+            "Review": {
+                "place_id": str,
+                "user_id": str,
+                "text": str
+            }
+        }
+        return attributes
