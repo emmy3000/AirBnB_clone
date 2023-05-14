@@ -37,10 +37,13 @@ Once inside the console, you can enter commands and interact with the system. Us
 Example:
 
 ```
+$ ./console.py
 (hbnb) help
+
 Documented commands (type help <topic>):
 ========================================
 EOF  help  quit
+
 (hbnb)
 (hbnb)
 (hbnb) quit
@@ -56,6 +59,7 @@ Example:
 ```
 $ echo "help" | ./console.py
 (hbnb)
+
 Documented commands (type help <topic>):
 ========================================
 EOF  help  quit
@@ -66,6 +70,7 @@ help
 $
 $ cat test_help | ./console.py
 (hbnb)
+
 Documented commands (type help <topic>):
 ========================================
 EOF  help  quit
