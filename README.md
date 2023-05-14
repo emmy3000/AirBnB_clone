@@ -75,7 +75,7 @@ $
 
 ### Commands currently available:
 
-| Command | Example |
+| Command | Syntax |
 | ------- | ------- |
 | Run the console | `./console.py` |
 | Quit the console | `(hbnb) quit` |
