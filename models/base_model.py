@@ -50,7 +50,7 @@ class BaseModel:
         Return:
         A string in the format: "[class name] (id) {attribute dictionary}"
         """
-        class_name = "BaseModel"  # self.__class__.__name__
+        class_name = self.__class__.__name__
         attributes = self.__dict__.copy()
         attributes.pop('_sa_instance_state', None)
         return "[{}] ({}) {}".format(class_name, self.id, attributes)
