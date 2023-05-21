@@ -3,10 +3,10 @@ header {
 	height: 70px;
 	width: 100%;
 	border-bottom: 1px solid #CCCCCC;
-	display: flex;
-	align-items: center;
 }
 
-header .logo {
+.logo {
 	margin-left: 20px;
+	line-height: 70px;
+	vertical-align: middle;
 }
