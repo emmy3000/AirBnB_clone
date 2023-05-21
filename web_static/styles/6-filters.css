@@ -1,0 +1,32 @@
+.filters {
+	display: flex;
+}
+
+.locations {
+	width: 25%;
+	border-right: 1px solid #DDDDDD;
+	position: relative
+}
+
+.locations:hover .popover
+.amenities:hover .popover {
+	display: block;
+}
+
+.popover {
+	position: absolute;
+	display: none;
+	background-color: #FAFAFA;
+	width: 100%;
+	border: 1px solid #DDDDDD;
+	border-radius: 4px;
+	list-styles: none;
+}
+
+.popover li {
+	padding 10px;
+}
+
+.locations .popover h2 {
+	font-size: 16px;
+}
