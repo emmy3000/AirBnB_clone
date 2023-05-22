@@ -1,1 +1,3 @@
-0x01. AirBnB clone -- Web static
+# AirBnB clone - Web static
+
+Airbnb objects brought to life by building a static frontend application.
