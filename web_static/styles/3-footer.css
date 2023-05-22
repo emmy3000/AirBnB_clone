@@ -1,16 +1,19 @@
-/*
- * Footer Styles
+/* 
+ * styles/3-footer.css
+ *
  */
+
 
 /* Set styles for the footer */
 footer {
+	border-top: 1px solid #CCCCCC;
 	text-align: center;
-	background-color: #0f0;
+	background-color: #ffffff;
 	height: 60px;
 	width: 100%;
-	border-top: 1px solid #CCCCCC;
-	display: flex;
-	align-items: center;
+	bottom: 0;
 	justify-content: center;
-	color: white;
+	position: relative;
+	align-items: center;
+	display: flex;
 }
