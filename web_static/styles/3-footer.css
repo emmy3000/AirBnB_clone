@@ -2,12 +2,18 @@
 footer {
 	border-top: 1px solid #CCCCCC;
 	text-align: center;
-	background-color: #ffffff;
-	height: 60px;
-	width: 100%;
-	bottom: 0;
-	justify-content: center;
-	position: relative;
-	align-items: center;
-	display: flex;
+	background: #F6F6F6;
+	padding: 20px;
+	color: #888888;
+	font-size: 12px;
+}
+
+/* Link Styles for the Footer */
+footer a {
+	color: #888888;
+	text-decoration: none;
+}
+
+footer a:hover {
+	text-decoration: underline;
 }
