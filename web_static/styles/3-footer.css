@@ -1,9 +1,16 @@
+/*
+ * Footer Styles
+ */
+
+/* Set styles for the footer */
 footer {
-	color: white;
+	text-align: center;
+	background-color: #0f0;
 	height: 60px;
 	width: 100%;
 	border-top: 1px solid #CCCCCC;
 	display: flex;
 	align-items: center;
-	line-height: 60px;
+	justify-content: center;
+	color: white;
 }
