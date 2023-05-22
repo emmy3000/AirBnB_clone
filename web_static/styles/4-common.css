@@ -1,9 +1,4 @@
-
-/*
- * styles/4-common.css
- */
-
-/* Set global styles for the body */
+/* Global Styles for the Body */
 body {
 	color: #484848;
 	margin: 0;
@@ -11,8 +6,13 @@ body {
 	font: 14px Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-/* Set styles for the container */
+/* Styles for the Container */
 .container {
 	margin: 30px auto;
 	max-width: 1000px;
+}
+
+/* Strong */
+strong {
+	font-weight: bold;
 }
