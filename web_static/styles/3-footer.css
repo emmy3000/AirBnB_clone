@@ -1,19 +1,22 @@
-/* Styles for the Footer */
-footer {
-	border-top: 1px solid #CCCCCC;
-	text-align: center;
-	background: #F6F6F6;
+/* Footer styles */
+
+.footer {
+	background-color: #333;
+	color: #fff;
 	padding: 20px;
-	color: #888888;
-	font-size: 12px;
+	text-align: center;
 }
 
-/* Link Styles for the Footer */
-footer a {
-	color: #888888;
+.footer p {
+	margin: 10px 0;
+}
+
+.footer a {
+	color: #fff;
 	text-decoration: none;
 }
 
-footer a:hover {
+.footer a:hover {
 	text-decoration: underline;
 }
+
