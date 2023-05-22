@@ -1,32 +1,111 @@
+/* Styles for the Filters Section */
 .filters {
-	display: flex;
+	background-color: #ffffff;
+	height: 70px;
+	width: 100%;
+	border: 1px solid #dddddd;
+	border-radius: 4px;
+	display: inline-block;
 }
 
-.locations {
+/* Styles for the Search Button */
+.filters button {
+	font-size: 18px;
+	background-color: #ff5a5f;
+	height: 48px;
+	width: 20%;
+	border-radius: 4px;
+	border: none;
+	color: #ffffff;
+	float: right;
+	margin: 12px 30px;
+}
+
+.filters button:hover {
+	background-color: rgba(255, 90, 95, .9);
+}
+
+/* Styles for the Locations and Amenities Filters */
+.filters .locations,
+.filters .amenities {
+	display: inline-block;
+	position: relative;
+	height: 100%;
 	width: 25%;
-	border-right: 1px solid #DDDDDD;
-	position: relative
 }
 
-.locations:hover .popover
-.amenities:hover .popover {
+/* Styles for the Locations Filter */
+.filters .locations {
+	border-right: 1px solid #dddddd;
+}
+
+/* Hover Styles for Locations and Amenities Filters */
+.filters .locations:hover,
+.filters .amenities:hover {
+	background-color: #fafafa;
+}
+
+/* Styles for the Popover */
+.filters .popover {
+	background-color: #fafafa;
+	border: 1px solid #dddddd;
+	border-radius: 4px;
+	display: none;
+	position: absolute;
+	width: 100%;
+}
+
+/* Show Popover on Hover */
+.filters .locations:hover .popover,
+.filters .amenities:hover .popover {
 	display: block;
 }
 
-.popover {
-	position: absolute;
-	display: none;
-	background-color: #FAFAFA;
-	width: 100%;
-	border: 1px solid #DDDDDD;
-	border-radius: 4px;
-	list-styles: none;
+/* Styles for the Location and Amenities Lists */
+.filters .locations ul {
+	padding: 6px 0 6px 0;
+	list-style-type: none;
 }
 
-.popover li {
-	padding 10px;
+.filters .amenities ul {
+	list-style-type: none;
 }
 
-.locations .popover h2 {
+/* Styles for the Location and Amenities List Items */
+.filters .locations li {
+	margin: 0 auto 12px 3em;
+}
+
+.filters .amenities li {
+	margin: 12px auto 12px 30px;
+}
+
+/* Styles for the Heading Tags in the Filters */
+.filters h2,
+.filters h3,
+.filters h4 {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+}
+
+.filters h2 {
 	font-size: 16px;
+	font-weight: bold;
+	margin: 12px auto 0 30px;
+}
+
+.filters h3 {
+	font-size: 1.17em;
+	font-weight: 600;
+	height: 50%;
+	padding: 15.5px 0 0 30px;
+}
+
+.filters h4 {
+	font-size: 14px;
+	font-weight: 400;
+	height: 50%;
+	padding: 5px 0 12px 30px;
 }
